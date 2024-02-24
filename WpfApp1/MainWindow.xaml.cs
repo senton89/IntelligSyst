@@ -42,6 +42,27 @@ namespace WpfApp1
                 "Проезд грузовым автомобилям воспрещен","Светофор"
             };
             ElementsCMB.ItemsSource = elements;
+            //TODO: pictures in combobox
+            //foreach (string element in elements)
+            //{
+            //    ComboBoxItem item = new ComboBoxItem();
+            //    StackPanel stackPanel = new StackPanel();
+            //    stackPanel.Orientation = Orientation.Horizontal;
+            //    Image image = new Image();
+            //    image.Source = 
+            //}
+
+
+            // new BitmapImage(new Uri("yourImage.jpg", UriKind.Relative));
+            //image.Width = 20;
+            //image.Height = 20;
+            //TextBlock textBlock = new TextBlock();
+            //textBlock.Text = "Динамическая опция";
+            //stackPanel.Children.Add(image);
+            //stackPanel.Children.Add(textBlock);
+            //item.Content = stackPanel;
+            //comboBox.Items.Add(item);
+
             SqlConnection connection = new SqlConnection(@"Data Source=laptop-9udmbido\sqlexpress; Initial Catalog=Examen
 ; Integrated Security=True");
         }
