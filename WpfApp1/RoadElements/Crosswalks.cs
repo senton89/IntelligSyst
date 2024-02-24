@@ -13,7 +13,6 @@ namespace WpfApp1.RoadElements
         public Crosswalks(Image place)
         {
             this.place = place;
-            DrawElement("crosswalk", place, 10, 10);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace WpfApp1.RoadElements
 {
     class Elements
     {
-        protected void DrawElement(string element, Image name, int x, int y)
+        public static BitmapImage GetBitmapImage(string element, Image name)
         {
             string imagePath = $"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\img\\{element}.png";
             //Console.WriteLine(GetColorFromImage(imagePath, x, y));
@@ -20,8 +20,7 @@ namespace WpfApp1.RoadElements
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(imagePath);
             bitmap.EndInit();
-
-            name.Source = bitmap;
+            return bitmap;
         }
         private Color GetColorFromImage(BitmapSource source, int x, int y)
         {

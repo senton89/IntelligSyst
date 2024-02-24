@@ -13,7 +13,6 @@ namespace WpfApp1.RoadElements
         public NoTrailers(Image place)
         {
             this.place = place;
-            DrawElement("notrailers", place, 10, 10);
         }
     }
 }

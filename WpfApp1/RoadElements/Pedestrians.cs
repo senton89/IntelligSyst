@@ -13,7 +13,6 @@ namespace WpfApp1.RoadElements
         public Pedestrians(Image place)
         {
             this.place = place;
-            DrawElement("pedestrian", place, 10, 10);
         }
     }
 }

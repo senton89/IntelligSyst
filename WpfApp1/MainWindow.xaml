@@ -6,13 +6,36 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="600">
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Blue" BlurRadius="10" ShadowDepth="0" Opacity="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                    <Setter Property="BorderThickness" Value="2" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Width="600" Height="500">
         <Grid Width="400" Margin="1,40,199,50">
-
-            <Image x:Name="RoadMap"/>
-            <Image x:Name="StopSign" Width="20"/>
-            <Label x:Name="mouseMover" Content="" HorizontalAlignment="Left" Margin="0,-31,0,0" VerticalAlignment="Top" Width="160"/>
+            <Image x:Name="RoadMap" MouseLeftButtonDown="AddObject"/>
+            <Label x:Name="mouseMoverText" Content="" HorizontalAlignment="Left" Margin="0,-31,0,0" VerticalAlignment="Top" Width="160"/>
+            <Label x:Name="mouseMoverX" Content="" HorizontalAlignment="Left" Margin="19,-31,0,0" VerticalAlignment="Top" Width="40"/>
+            <Label x:Name="mouseMoverY" Content="" HorizontalAlignment="Left" Margin="80,-31,0,0" VerticalAlignment="Top" Width="40"/>
+            <Canvas x:Name="MainCanvas"/>
+            
         </Grid>
-        <ComboBox SelectionChanged="ElementsCMB_SelectionChanged" Name="ElementsCMB" Text="Добавить объект"  HorizontalAlignment="Left" Margin="385,0,0,0" VerticalAlignment="Top" Width="205"/>
+        <ComboBox SelectionChanged="ElementsCMB_SelectionChanged" Name="ElementsCMB" Text="Добавить объект"  HorizontalAlignment="Left" Margin="415,0,0,0" VerticalAlignment="Top" Width="185"/>
+        <Button x:Name="DeleteObject" Click="DeleteObject_Click" Content="Удалить выбраный объект" HorizontalAlignment="Left" Height="22" Margin="415,40,0,0" VerticalAlignment="Top" Width="175" IsEnabled="False"/>
     </Grid>
 </Window>

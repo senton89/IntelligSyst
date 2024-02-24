@@ -13,7 +13,6 @@ namespace WpfApp1.RoadElements
         public NoTrucks(Image place)
         {
             this.place = place;
-            DrawElement("notrucks", place, 10, 10);
         }
     }
 }
