@@ -12,7 +12,7 @@ namespace WpfApp1.RoadElements
 {
     class Elements
     {
-        public static BitmapImage GetBitmapImage(string element, Image name)
+        public BitmapImage GetBitmapImage(string element, Image name)
         {
             string imagePath = $"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\img\\{element}.png";
             //Console.WriteLine(GetColorFromImage(imagePath, x, y));
