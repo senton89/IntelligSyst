@@ -15,12 +15,12 @@ namespace WpfApp1.RoadElements
         public BitmapImage GetBitmapImage(string element, Image name)
         {
             string imagePath = $"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\img\\{element}.png";
-            //Console.WriteLine(GetColorFromImage(imagePath, x, y));
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(imagePath);
             bitmap.EndInit();
             return bitmap;
+            //Console.WriteLine(GetColorFromImage(imagePath, x, y));
         }
         private Color GetColorFromImage(BitmapSource source, int x, int y)
         {
