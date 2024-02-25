@@ -104,7 +104,9 @@ namespace WpfApp1
                 case "Проезд грузовым автомобилям воспрещен":
                     elementType = "noTrucks";
                     break;
-                default: break;
+                default:
+                    elementType = "";
+                    break;
             }
         }
 
@@ -126,6 +128,12 @@ namespace WpfApp1
                 elementPlace.Source = element.GetBitmapImage(elementType,elementPlace);
             }
             catch { }
+            if (elementType == "")
+            {
+                Cars car = new Cars(elementPlace);
+                car.MoveRight((x - 1) * offset);
+                car.RotateLeft();
+            }
             if (elementType == "pedestrian")
             {
                 Pedestrians pedestrian = new Pedestrians(elementPlace);

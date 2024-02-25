@@ -14,8 +14,8 @@ namespace WpfApp1.RoadElements
     {
         public BitmapImage GetBitmapImage(string element, Image name)
         {
-            string imagePath = $"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\img\\{element}.png";
-            BitmapImage bitmap = new BitmapImage();
+            string imagePath = $"C:\\Users\\sento\\Source\\Repos\\IntelligSyst\\WpfApp1\\img\\{element}.png";
+        BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(imagePath);
             bitmap.EndInit();

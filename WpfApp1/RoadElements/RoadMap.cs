@@ -18,7 +18,7 @@ namespace WpfApp1.RoadElements
         }
         public void DrawElement(string element, Image name)
         {
-            string imagePath = $"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\img\\{element}.png";
+            string imagePath = $"C:\\Users\\sento\\Source\\Repos\\IntelligSyst\\WpfApp1\\img\\{element}.png";
 
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
