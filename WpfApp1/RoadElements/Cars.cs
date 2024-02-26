@@ -22,67 +22,121 @@ namespace WpfApp1.RoadElements
             this.place = place;
             place.Source = GetBitmapImage("car", place);
         }
-        public async void MoveBottom(int Ycoordinates)
+        public void MoveBottom(int Ycoordinates,int pixels = 20)
+        {
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
+            DoubleAnimation moveAnimation = new DoubleAnimation();
+            moveAnimation.To = Ycoordinates + pixels;
+            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
+            place.BeginAnimation(Canvas.TopProperty, moveAnimation);
+        }
+        public void MoveTop(int Ycoordinates,int pixels = 20)
+        {
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
+            DoubleAnimation moveAnimation = new DoubleAnimation();
+            moveAnimation.To = Ycoordinates - pixels;
+            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
+            place.BeginAnimation(Canvas.TopProperty, moveAnimation);
+        }
+        public void MoveLeft(int Xcoordinates,int pixels = 20)
+        {
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
+            DoubleAnimation moveAnimation = new DoubleAnimation();
+            moveAnimation.To = Xcoordinates - pixels;
+            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
+            place.BeginAnimation(Canvas.LeftProperty, moveAnimation);
+        }
+        public void MoveRight(int Xcoordinates,int pixels = 20)
+        {
+
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
+            DoubleAnimation moveAnimation = new DoubleAnimation();
+            moveAnimation.To = Xcoordinates + pixels;
+            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
+            place.BeginAnimation(Canvas.LeftProperty, moveAnimation);
+        }
+        public async void TurnBottomToLeft(int Xcoordinates, int Ycoordinates)
+        {
+            MoveTop(Ycoordinates, 40);
+            await Task.Delay(500);
+            RotateLeft(90);
+            await Task.Delay(100);
+            MoveLeft(Xcoordinates, 20);
+        }
+        public async void TurnBottomToRight(int Xcoordinates, int Ycoordinates)
+        {
+            MoveTop(Ycoordinates, 20);
+            await Task.Delay(200);
+            RotateRight(90);
+            await Task.Delay(100);
+            MoveRight(Xcoordinates, 20);
+        }
+        public async void TurnTopToLeft(int Xcoordinates, int Ycoordinates)
         {
             startAngle = 180;
-            place.RenderTransform = new RotateTransform(startAngle);
-            place.RenderTransform = translateTransform;
-
-            DoubleAnimation moveAnimation = new DoubleAnimation();
-            moveAnimation.To = Ycoordinates + 20;
-            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
-            place.BeginAnimation(Canvas.TopProperty, moveAnimation);
+            MoveBottom(Ycoordinates, 40);
+            await Task.Delay(400);
+            RotateLeft(90);
+            await Task.Delay(300);
+            MoveRight(Xcoordinates, 40);
         }
-        public async void MoveTop(int Ycoordinates)
+        public async void TurnTopToRight(int Xcoordinates, int Ycoordinates)
         {
-            startAngle = 0;
-            place.RenderTransform = new RotateTransform(startAngle);
-            place.RenderTransform = translateTransform;
-
-            DoubleAnimation moveAnimation = new DoubleAnimation();
-            moveAnimation.To = Ycoordinates + 20;
-            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
-            place.BeginAnimation(Canvas.TopProperty, moveAnimation);
+            startAngle = 180;
+            MoveTop(Ycoordinates, 20);
+            await Task.Delay(200);
+            RotateRight(90);
+            await Task.Delay(100);
+            MoveRight(Xcoordinates, 20);
         }
-        public void MoveLeft(int Xcoordinates)
+        public async void TurnRightToBottom(int Xcoordinates, int Ycoordinates)
         {
             startAngle = 270;
-            place.RenderTransform = new RotateTransform(startAngle);
-            place.RenderTransform = translateTransform;
-
-            DoubleAnimation moveAnimation = new DoubleAnimation();
-            moveAnimation.To = Xcoordinates - 20;
-            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
-            place.BeginAnimation(Canvas.LeftProperty, moveAnimation);
+            RotateLeft(1);
+            MoveLeft(Xcoordinates, 40);
+            await Task.Delay(500);
+            RotateLeft(90);
+            await Task.Delay(100);
+            MoveBottom(Ycoordinates, 40);
         }
-        public async void MoveRight(int Xcoordinates)
+        public async void TurnRightToTop(int Xcoordinates, int Ycoordinates)
         {
-            startAngle = 90;
-            place.RenderTransform = new RotateTransform(startAngle);
-            place.RenderTransform = translateTransform;
-
-            DoubleAnimation moveAnimation = new DoubleAnimation();
-            moveAnimation.To = Xcoordinates + 20;
-            moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
-            place.BeginAnimation(Canvas.LeftProperty, moveAnimation);
+            startAngle = 270;
+            RotateRight(1);
+            MoveLeft(Xcoordinates, 20);
+            await Task.Delay(200);
+            RotateRight(90);
+            await Task.Delay(100);
+            MoveTop(Ycoordinates, 20);
         }
-        public void RotateRight()
+        private void RotateRight(int angle)
         {
+            
             place.RenderTransformOrigin = new Point(0.5, 0.5);
             place.RenderTransform = rotateTransform;
             DoubleAnimation rotateAnimation = new DoubleAnimation();
             rotateAnimation.From = startAngle;
-            rotateAnimation.To = startAngle + 90;
+
+            rotateAnimation.To = startAngle+angle;
             rotateAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }
-        public void RotateLeft()
+        private void RotateLeft(int angle)
         {
             place.RenderTransformOrigin = new Point(0.5, 0.5);
             place.RenderTransform = rotateTransform;
             DoubleAnimation rotateAnimation = new DoubleAnimation();
             rotateAnimation.From = startAngle;
-            rotateAnimation.To = startAngle - 90;
+            
+            rotateAnimation.To = startAngle-angle;
             rotateAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }

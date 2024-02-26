@@ -14,18 +14,6 @@ namespace WpfApp1.RoadElements
         public RoadMap(Image place)
         {
             this.place = place;
-            DrawElement("roadmap", place);
-        }
-        public void DrawElement(string element, Image name)
-        {
-            string imagePath = $"C:\\Users\\sento\\Source\\Repos\\IntelligSyst\\WpfApp1\\img\\{element}.png";
-
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(imagePath);
-            bitmap.EndInit();
-
-            name.Source = bitmap;
         }
     }
 }

@@ -35,6 +35,7 @@ namespace WpfApp1
             InitializeComponent();
 
             RoadMap map = new RoadMap(RoadMap);
+            RoadMap.Source = map.GetBitmapImage("roadmap",RoadMap);
             MouseMove += Window_MouseMove;
             List<string> elements = new List<string> {
                 "Пешеходный переход","Пешеход",
@@ -131,8 +132,7 @@ namespace WpfApp1
             if (elementType == "")
             {
                 Cars car = new Cars(elementPlace);
-                car.MoveRight((x - 1) * offset);
-                car.RotateLeft();
+                car.TurnTopToLeft((x - 1) * offset,(y - 1) * offset + 5);
             }
             if (elementType == "pedestrian")
             {
