@@ -132,7 +132,7 @@ namespace WpfApp1
             if (elementType == "")
             {
                 Cars car = new Cars(elementPlace);
-                car.TurnTopToLeft((x - 1) * offset,(y - 1) * offset + 5);
+                car.TurnBottomToLeft((x - 1) * offset, (y - 1) * offset + 5);
             }
             if (elementType == "pedestrian")
             {

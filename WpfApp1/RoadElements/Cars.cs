@@ -69,7 +69,7 @@ namespace WpfApp1.RoadElements
             await Task.Delay(500);
             RotateLeft(90);
             await Task.Delay(100);
-            MoveLeft(Xcoordinates, 20);
+            MoveLeft(Xcoordinates, 40);
         }
         public async void TurnBottomToRight(int Xcoordinates, int Ycoordinates)
         {
@@ -79,7 +79,7 @@ namespace WpfApp1.RoadElements
             await Task.Delay(100);
             MoveRight(Xcoordinates, 20);
         }
-        public async void TurnTopToLeft(int Xcoordinates, int Ycoordinates)
+        public async void TurnTopToRight(int Xcoordinates, int Ycoordinates)
         {
             startAngle = 180;
             MoveBottom(Ycoordinates, 40);
@@ -88,14 +88,14 @@ namespace WpfApp1.RoadElements
             await Task.Delay(300);
             MoveRight(Xcoordinates, 40);
         }
-        public async void TurnTopToRight(int Xcoordinates, int Ycoordinates)
+        public async void TurnTopToLeft(int Xcoordinates, int Ycoordinates)
         {
             startAngle = 180;
-            MoveTop(Ycoordinates, 20);
-            await Task.Delay(200);
+            MoveBottom(Ycoordinates, 20);
+            await Task.Delay(400);
             RotateRight(90);
-            await Task.Delay(100);
-            MoveRight(Xcoordinates, 20);
+            await Task.Delay(300);
+            MoveLeft(Xcoordinates, 20);
         }
         public async void TurnRightToBottom(int Xcoordinates, int Ycoordinates)
         {
