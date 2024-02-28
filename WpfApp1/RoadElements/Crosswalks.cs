@@ -10,9 +10,11 @@ namespace WpfApp1.RoadElements
     class Crosswalks : Elements
     {
         Image place;
+
         public Crosswalks(Image place)
         {
             this.place = place;
+            place.Name = "Crosswalk";
         }
     }
 }

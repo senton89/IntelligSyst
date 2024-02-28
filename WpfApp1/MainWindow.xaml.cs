@@ -37,6 +37,7 @@ namespace WpfApp1
             RoadMap map = new RoadMap(RoadMap);
             MouseMove += Window_MouseMove;
             List<string> elements = new List<string> {
+                "Машина",
                 "Пешеходный переход","Пешеход",
                 "Знак стоп","Проезд автомобилям с прицепам воспрещен",
                 "Проезд грузовым автомобилям воспрещен","Светофор"
@@ -86,6 +87,9 @@ namespace WpfApp1
             string selectedItem = ElementsCMB.SelectedValue.ToString();
             switch (selectedItem)
             {
+                case "Машина":
+                    elementType = "car";
+                    break;
                 case "Пешеходный переход":
                     elementType = "crosswalk";
                     break;
@@ -131,6 +135,11 @@ namespace WpfApp1
             {
                 Pedestrians pedestrian = new Pedestrians(elementPlace);
                 pedestrian.WalkTop((y - 1) * offset + 5);
+            }
+            if (elementType == "car")
+            {
+                Cars car = new Cars(elementPlace);
+                Routes.carRoute(car, (x - 1) * offset, (y - 1) * offset + 5);
             }
             if (elementType == "trafficLightGreen")
             {

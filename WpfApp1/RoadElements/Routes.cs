@@ -9,9 +9,24 @@ namespace WpfApp1.RoadElements
 {
     class Routes
     {
-        public void car(Image car)
+        List<Image> images = new List<Image>();
+        MainWindow main = new MainWindow();
+        private void MoveAndCheck(Cars car)
         {
-
+            int.TryParse(main.mouseMoverX.Content.ToString(), out int x);
+            int.TryParse(main.mouseMoverY.Content.ToString(), out int y);
+            car.MoveLeft((x - 1) * 20, (y - 1) * 20 + 5);
+        }
+        public static async void carRoute(Cars car,int x,int y)
+        {
+            car.MoveLeft(x,40);
+            await Task.Delay(1000);
+            car.TurnRightToBottom(x + 40, y);
+            await Task.Delay(1600);
+            car.MoveBottom(y, 120);
+            await Task.Delay(1000);
+            car.TurnTopToLeft((x - 1) * 20, (y - 1) * 20 + 5);
+            car.MoveRight((x - 1) * 20, 40);
         }
     }
 }
