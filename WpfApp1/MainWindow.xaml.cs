@@ -93,7 +93,7 @@ namespace WpfApp1
                     elementType = "pedestrian";
                     break;
                 case "Светофор":
-                    elementType = "trafficLight";
+                    elementType = "trafficLightGreen";
                     break;
                 case "Знак стоп":
                     elementType = "stop";
@@ -104,7 +104,8 @@ namespace WpfApp1
                 case "Проезд грузовым автомобилям воспрещен":
                     elementType = "noTrucks";
                     break;
-                default: break;
+                default:
+                    break;
             }
         }
 
@@ -123,7 +124,7 @@ namespace WpfApp1
             Canvas.SetTop(elementPlace, (y - 1) * offset + 5);
             try
             {
-                elementPlace.Source = element.GetBitmapImage(elementType,elementPlace);
+                elementPlace.Source = Elements.GetBitmapImage(elementType);
             }
             catch { }
             if (elementType == "pedestrian")
@@ -131,9 +132,10 @@ namespace WpfApp1
                 Pedestrians pedestrian = new Pedestrians(elementPlace);
                 pedestrian.WalkTop((y - 1) * offset + 5);
             }
-            if (elementType == "trafficLight")
+            if (elementType == "trafficLightGreen")
             {
                 TrafficLights trafficLight = new TrafficLights(elementPlace);
+                TrafficLights.AddToList(trafficLight);
             }
         }
         private void Element_MouseDown(object sender,MouseButtonEventArgs e)
@@ -143,7 +145,7 @@ namespace WpfApp1
             imageToDelete = (Image)sender;
             foreach (var child in MainCanvas.Children)
             {
-                if (child is Image && child!=imageToDelete)
+                if (child is Image && child != imageToDelete)
                 {
                     (child as Image).Effect = null;
                 }
@@ -162,7 +164,24 @@ namespace WpfApp1
         {
             MainCanvas.Children.Remove(imageToDelete);
             DeleteObject.IsEnabled = false;
+        }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            DB.ClearDataBase();
+        }
+
+        private void TrafficLightMode_Click(object sender, RoutedEventArgs e)
+        {
+            TrafficLights.AutoSwitchLight();
+        }
+
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(e.OriginalSource is Image))
+            {
+                imageToDelete.Effect = null;
+            }
         }
     }
 }

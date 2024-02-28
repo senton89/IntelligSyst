@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600">
+        Title="MainWindow" Closed="Window_Closed" Height="500" Width="600" >
 
-    <Grid Width="600" Height="500">
+    <Grid Width="600" Height="500" MouseDown="Grid_MouseDown">
         <Grid Width="400" Margin="1,40,199,50">
             <Image x:Name="RoadMap" MouseLeftButtonDown="AddObject"/>
             <Label x:Name="mouseMoverText" Content="" HorizontalAlignment="Left" Margin="0,-31,0,0" VerticalAlignment="Top" Width="160"/>
@@ -18,5 +18,8 @@
         </Grid>
         <ComboBox SelectionChanged="ElementsCMB_SelectionChanged" Name="ElementsCMB" Text="Добавить объект"  HorizontalAlignment="Left" Margin="415,0,0,0" VerticalAlignment="Top" Width="185"/>
         <Button x:Name="DeleteObject" Click="DeleteObject_Click" Content="Удалить выбраный объект" HorizontalAlignment="Left" Height="22" Margin="415,40,0,0" VerticalAlignment="Top" Width="175" IsEnabled="False"/>
+        <Button x:Name="TrafficLightMode" Click="TrafficLightMode_Click" HorizontalAlignment="Left" Height="35" Margin="415,78,0,0" VerticalAlignment="Top" Width="175">
+            <TextBlock TextWrapping="Wrap" Text="Изменить режим управления светофорами"/>
+        </Button>
     </Grid>
 </Window>
