@@ -39,6 +39,7 @@ namespace WpfApp1
             ResizeMode = ResizeMode.NoResize;
 
             RoadMap map = new RoadMap(RoadMap);
+            RoadMap.Source = map.GetBitmapImage("roadmap",RoadMap);
             MouseMove += Window_MouseMove;
 
             // new BitmapImage(new Uri("yourImage.jpg", UriKind.Relative));
@@ -119,6 +120,11 @@ namespace WpfApp1
                 elementPlace.Source = Elements.GetBitmapImage(elementType);
             }
             catch { }
+            if (elementType == "")
+            {
+                Cars car = new Cars(elementPlace);
+                car.TurnBottomToLeft((x - 1) * offset, (y - 1) * offset + 5);
+            }
             if (elementType == "pedestrian")
             {
                 Pedestrians pedestrian = new Pedestrians(elementPlace,this, (x - 1) * offset, (y - 1) * offset + 5);

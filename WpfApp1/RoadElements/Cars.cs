@@ -26,6 +26,9 @@ namespace WpfApp1.RoadElements
         }
         public void MoveBottom(int Ycoordinates, int pixels = 20)
         {
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
             DoubleAnimation moveAnimation = new DoubleAnimation();
             moveAnimation.To = Ycoordinates + pixels;
             moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
@@ -33,6 +36,9 @@ namespace WpfApp1.RoadElements
         }
         public void MoveTop(int Ycoordinates, int pixels = 20)
         {
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
             DoubleAnimation moveAnimation = new DoubleAnimation();
             moveAnimation.To = Ycoordinates - pixels;
             moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
@@ -40,6 +46,9 @@ namespace WpfApp1.RoadElements
         }
         public void MoveLeft(int Xcoordinates, int pixels = 20)
         {
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
             DoubleAnimation moveAnimation = new DoubleAnimation();
             moveAnimation.To = Xcoordinates - pixels;
             moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
@@ -47,6 +56,10 @@ namespace WpfApp1.RoadElements
         }
         public void MoveRight(int Xcoordinates, int pixels = 20)
         {
+
+            //place.RenderTransform = new RotateTransform(startAngle);
+            //place.RenderTransform = translateTransform;
+
             DoubleAnimation moveAnimation = new DoubleAnimation();
             moveAnimation.To = Xcoordinates + pixels;
             moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
@@ -129,7 +142,7 @@ namespace WpfApp1.RoadElements
 
         public void RotateRight(int angle)
         {
-
+            
             place.RenderTransformOrigin = new Point(0.5, 0.5);
             place.RenderTransform = rotateTransform;
             DoubleAnimation rotateAnimation = new DoubleAnimation();
@@ -145,7 +158,7 @@ namespace WpfApp1.RoadElements
             place.RenderTransform = rotateTransform;
             DoubleAnimation rotateAnimation = new DoubleAnimation();
             rotateAnimation.From = startAngle;
-
+            
             rotateAnimation.To = startAngle - angle;
             rotateAnimation.Duration = new Duration(TimeSpan.FromSeconds(seconds));
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
