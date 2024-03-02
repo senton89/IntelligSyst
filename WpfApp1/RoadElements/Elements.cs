@@ -14,11 +14,12 @@ namespace WpfApp1.RoadElements
     {
         public static BitmapImage GetBitmapImage(string element)
         {
-            string imagePath = $"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\img\\{element}.png";
+            string imagePath = $@"C:\Users\Родион\source\repos\WpfApp1\WpfApp1\img\{element}.png";
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(imagePath);
             bitmap.EndInit();
+            
             return bitmap;
         }
     }

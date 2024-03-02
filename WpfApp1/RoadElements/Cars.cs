@@ -14,7 +14,7 @@ namespace WpfApp1.RoadElements
 {
     internal class Cars : Elements
     {
-        Image place;
+        public Image place;
         private RotateTransform rotateTransform = new RotateTransform();
         private TranslateTransform translateTransform = new TranslateTransform();
         private int startAngle = 0;
@@ -40,7 +40,6 @@ namespace WpfApp1.RoadElements
         }
         public void MoveLeft(int Xcoordinates, int pixels = 20)
         {
-            RotateLeft(90,0);
             DoubleAnimation moveAnimation = new DoubleAnimation();
             moveAnimation.To = Xcoordinates - pixels;
             moveAnimation.Duration = new Duration(TimeSpan.FromSeconds(1)); // Продолжительность анимации в секундах
@@ -73,9 +72,9 @@ namespace WpfApp1.RoadElements
         {
             startAngle = 180;
             MoveBottom(Ycoordinates, 40);
-            await Task.Delay(400);
+            await Task.Delay(350);
             RotateLeft(90);
-            await Task.Delay(300);
+            await Task.Delay(450);
             MoveRight(Xcoordinates, 40);
         }
         public async void TurnTopToLeft(int Xcoordinates, int Ycoordinates)
@@ -90,7 +89,7 @@ namespace WpfApp1.RoadElements
         public async void TurnRightToBottom(int Xcoordinates, int Ycoordinates)
         {
             startAngle = 270;
-            RotateLeft(1);
+            RotateLeft(0);
             MoveLeft(Xcoordinates, 40);
             await Task.Delay(500);
             RotateLeft(90);
@@ -107,7 +106,28 @@ namespace WpfApp1.RoadElements
             await Task.Delay(100);
             MoveTop(Ycoordinates, 20);
         }
-        private void RotateRight(int angle)
+        public async void TurnLeftToBottom(int Xcoordinates, int Ycoordinates)
+        {
+            startAngle = 90;
+            RotateLeft(1);
+            MoveRight(Xcoordinates, 20);
+            await Task.Delay(500);
+            RotateRight(90);
+            await Task.Delay(100);
+            MoveBottom(Ycoordinates, 20);
+        }
+        public async void TurnLeftToTop(int Xcoordinates, int Ycoordinates)
+        {
+            startAngle = 270;
+            RotateRight(1);
+            MoveLeft(Xcoordinates, 20);
+            await Task.Delay(200);
+            RotateRight(90);
+            await Task.Delay(100);
+            MoveTop(Ycoordinates, 20);
+        }
+
+        public void RotateRight(int angle)
         {
 
             place.RenderTransformOrigin = new Point(0.5, 0.5);
@@ -119,7 +139,7 @@ namespace WpfApp1.RoadElements
             rotateAnimation.Duration = new Duration(TimeSpan.FromSeconds(1));
             rotateTransform.BeginAnimation(RotateTransform.AngleProperty, rotateAnimation);
         }
-        private void RotateLeft(int angle,int seconds = 1)
+        public void RotateLeft(int angle,int seconds = 1)
         {
             place.RenderTransformOrigin = new Point(0.5, 0.5);
             place.RenderTransform = rotateTransform;

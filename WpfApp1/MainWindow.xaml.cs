@@ -24,35 +24,22 @@ using System.Configuration;
 
 namespace WpfApp1
 {
-
+    
     public partial class MainWindow : Window
     {
+        public static int countSwitcher = 0;
         string elementType = "";
-        Image imageToDelete;
-        Elements element = new Elements();
+        static Image imageToDelete;
         public MainWindow()
         {
             InitializeComponent();
 
+            Height = 500;
+            Width = 600;
+            ResizeMode = ResizeMode.NoResize;
+
             RoadMap map = new RoadMap(RoadMap);
             MouseMove += Window_MouseMove;
-            List<string> elements = new List<string> {
-                "Машина",
-                "Пешеходный переход","Пешеход",
-                "Знак стоп","Проезд автомобилям с прицепам воспрещен",
-                "Проезд грузовым автомобилям воспрещен","Светофор"
-            };
-            ElementsCMB.ItemsSource = elements;
-            //TODO: pictures in combobox
-            //foreach (string element in elements)
-            //{
-            //    ComboBoxItem item = new ComboBoxItem();
-            //    StackPanel stackPanel = new StackPanel();
-            //    stackPanel.Orientation = Orientation.Horizontal;
-            //    Image image = new Image();
-            //    image.Source = 
-            //}
-
 
             // new BitmapImage(new Uri("yourImage.jpg", UriKind.Relative));
             //image.Width = 20;
@@ -84,29 +71,30 @@ namespace WpfApp1
 
         private void ElementsCMB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string selectedItem = ElementsCMB.SelectedValue.ToString();
+            //string selectedItem = ElementsCMB.SelectedValue.ToString();
+            int selectedItem = ElementsCMB.SelectedIndex+1;
             switch (selectedItem)
             {
-                case "Машина":
+                case 1:
                     elementType = "car";
                     break;
-                case "Пешеходный переход":
+                case 2:
                     elementType = "crosswalk";
                     break;
-                case "Пешеход":
+                case 3:
                     elementType = "pedestrian";
                     break;
-                case "Светофор":
-                    elementType = "trafficLightGreen";
-                    break;
-                case "Знак стоп":
+                case 4:
                     elementType = "stop";
                     break;
-                case "Проезд автомобилям с прицепам воспрещен":
+                case 5:
                     elementType = "noTrailers";
                     break;
-                case "Проезд грузовым автомобилям воспрещен":
+                case 6:
                     elementType = "noTrucks";
+                    break;
+                case 7:
+                    elementType = "trafficLightGreen";
                     break;
                 default:
                     break;
@@ -115,7 +103,7 @@ namespace WpfApp1
 
         private void AddObject(object sender, MouseButtonEventArgs e)
         {
-            Image elementPlace = new Image();
+            Image elementPlace = new();
             elementPlace.MouseDown += Element_MouseDown;
             elementPlace.Width = 20;
             elementPlace.Height = 20;
@@ -133,23 +121,24 @@ namespace WpfApp1
             catch { }
             if (elementType == "pedestrian")
             {
-                Pedestrians pedestrian = new Pedestrians(elementPlace);
+                Pedestrians pedestrian = new Pedestrians(elementPlace,this, (x - 1) * offset, (y - 1) * offset + 5);
                 pedestrian.WalkTop((y - 1) * offset + 5);
             }
             if (elementType == "car")
             {
                 Cars car = new Cars(elementPlace);
                 Routes.carRoute(car, (x - 1) * offset, (y - 1) * offset + 5);
+                Routes.carDispose(car, this);
             }
             if (elementType == "trafficLightGreen")
             {
                 TrafficLights trafficLight = new TrafficLights(elementPlace);
                 TrafficLights.AddToList(trafficLight);
+                TrafficLightMode.IsEnabled = true;
             }
         }
         private void Element_MouseDown(object sender,MouseButtonEventArgs e)
         {
-            //TODO click on void = remove Effect
             DeleteObject.IsEnabled = true;
             imageToDelete = (Image)sender;
             foreach (var child in MainCanvas.Children)
@@ -167,21 +156,28 @@ namespace WpfApp1
                 BlurRadius = 25,
                 ShadowDepth = 0,
             };
+
+            if (imageToDelete.Name.Contains("trafficLight"))
+            {
+                int.TryParse(imageToDelete.Name.Substring(12), out int code);
+                TrafficLights.EditTimer(this, TrafficLights.lights[code-1]);
+            }
         }
 
         private void DeleteObject_Click(object sender, RoutedEventArgs e)
         {
             MainCanvas.Children.Remove(imageToDelete);
+            if (imageToDelete.Name.Contains("trafficLight"))
+            {
+                int.TryParse(imageToDelete.Name.Substring(12),out int code);
+                TrafficLights.DeleteTrafficLight(code);
+            }
             DeleteObject.IsEnabled = false;
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            DB.ClearDataBase();
         }
 
         private void TrafficLightMode_Click(object sender, RoutedEventArgs e)
         {
+            countSwitcher += 1;
             TrafficLights.AutoSwitchLight();
         }
 
@@ -189,7 +185,10 @@ namespace WpfApp1
         {
             if (!(e.OriginalSource is Image))
             {
-                imageToDelete.Effect = null;
+                if (imageToDelete != null)
+                {
+                    imageToDelete.Effect = null;
+                    imageToDelete = new();                }
             }
         }
     }

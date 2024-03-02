@@ -13,5 +13,10 @@ namespace WpfApp1
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnExit(ExitEventArgs e)
+        {
+            DB.ClearDataBase();
+            base.OnExit(e);
+        }
     }
 }

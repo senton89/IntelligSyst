@@ -8,6 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\Car.png" />
+    <None Remove="img\crosswalk.png" />
+    <None Remove="img\notrailers.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\car.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\crosswalk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\notrailers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.Drawing" Version="24.2.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
