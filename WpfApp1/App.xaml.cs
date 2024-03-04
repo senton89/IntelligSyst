@@ -15,6 +15,8 @@ namespace WpfApp1
     {
         protected override void OnExit(ExitEventArgs e)
         {
+            WpfApp1.MainWindow.SaveDictionary("Horizontal");
+            WpfApp1.MainWindow.SaveDictionary("Vertical");
             DB.ClearDataBase();
             base.OnExit(e);
         }

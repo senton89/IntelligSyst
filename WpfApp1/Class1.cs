@@ -7,6 +7,7 @@ namespace WpfApp1
 {
     class Class1
     {
+        int[] j = new int[3] { 1, 2, 3 };
 
         /*private void DetermineBackgroundColor()
         {

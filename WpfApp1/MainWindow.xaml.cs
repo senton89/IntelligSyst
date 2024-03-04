@@ -20,6 +20,8 @@ using System.Data;
 using System.Data.SqlTypes;
 using System.Configuration.Provider;
 using System.Configuration;
+using System.Xml.Serialization;
+using System.IO;
 //using static System.Net.Mime.MediaTypeNames;
 
 namespace WpfApp1
@@ -28,18 +30,20 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         public static int countSwitcher = 0;
+        public static List<Point> RoadHorizontal = new List<Point>();
+        public static List<Point> RoadVertical = new List<Point>();
         string elementType = "";
         static Image imageToDelete;
         public MainWindow()
         {
             InitializeComponent();
-
             Height = 500;
             Width = 600;
             ResizeMode = ResizeMode.NoResize;
-
+            RoadHorizontal = LoadDictionary("Horizontal");
+            RoadVertical = LoadDictionary("Vertical");
             RoadMap map = new RoadMap(RoadMap);
-            RoadMap.Source = map.GetBitmapImage("roadmap",RoadMap);
+            RoadMap.Source = Elements.GetBitmapImage("roadmap");
             MouseMove += Window_MouseMove;
 
             // new BitmapImage(new Uri("yourImage.jpg", UriKind.Relative));
@@ -120,11 +124,6 @@ namespace WpfApp1
                 elementPlace.Source = Elements.GetBitmapImage(elementType);
             }
             catch { }
-            if (elementType == "")
-            {
-                Cars car = new Cars(elementPlace);
-                car.TurnBottomToLeft((x - 1) * offset, (y - 1) * offset + 5);
-            }
             if (elementType == "pedestrian")
             {
                 Pedestrians pedestrian = new Pedestrians(elementPlace,this, (x - 1) * offset, (y - 1) * offset + 5);
@@ -187,14 +186,42 @@ namespace WpfApp1
             TrafficLights.AutoSwitchLight();
         }
 
+        public static void SaveDictionary(string type)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+            using (StreamWriter writer = new StreamWriter($"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\XML{type}.xml"))
+            {
+                serializer.Serialize(writer, RoadHorizontal);
+            }
+        }
+        
+        public static List<Point> LoadDictionary(string type)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Point>));
+            using (StreamReader reader = new StreamReader($"C:\\Users\\Родион\\source\\repos\\WpfApp1\\WpfApp1\\XML{type}.xml"))
+            {
+                try
+                {
+                    return (List<Point>)serializer.Deserialize(reader);
+                }
+                catch{
+                    return new List<Point>();
+                }
+            }
+        }
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            int.TryParse(mouseMoverX.Content.ToString(), out int x);
+            int.TryParse(mouseMoverY.Content.ToString(), out int y);
+            //RoadHorizontal.Add(new Point(x, y));
+            //RoadVertical.Add(new Point(x, y));
             if (!(e.OriginalSource is Image))
             {
                 if (imageToDelete != null)
                 {
                     imageToDelete.Effect = null;
-                    imageToDelete = new();                }
+                    imageToDelete = new();                
+                }
             }
         }
     }
